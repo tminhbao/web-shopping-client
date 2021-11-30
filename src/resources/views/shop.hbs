@@ -1,0 +1,189 @@
+<!-- Begin Li's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li class="active">Shop</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Li's Breadcrumb Area End Here -->
+<!-- Begin Li's Content Wraper Area -->
+<div class="content-wraper pt-60 pb-60 pt-sm-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 order-1 order-lg-2">
+                <!-- shop-top-bar start -->
+                <div class="shop-top-bar mt-30">
+                    <div class="shop-bar-inner">
+                        <div class="product-view-mode">
+                            <!-- shop-item-filter-list start -->
+                            <ul class="nav shop-item-filter-list" role="tablist">
+                                <li class="active" role="presentation"><a aria-selected="true" class="active show"
+                                        data-toggle="tab" role="tab" aria-controls="grid-view" href="#grid-view"><i
+                                            class="fa fa-th"></i></a></li>
+                                <li role="presentation"><a data-toggle="tab" role="tab" aria-controls="list-view"
+                                        href="#list-view"><i class="fa fa-th-list"></i></a></li>
+                            </ul>
+                            <!-- shop-item-filter-list end -->
+                        </div>
+                    </div>
+                    <!-- product-select-box start -->
+                    <div class="product-select-box">
+                        <div class="product-short">
+                            <p>Sort By:</p>
+                            <select class="nice-select">
+                                <option value="trending">Relevance</option>
+                                <option value="sales">Name (A - Z)</option>
+                                <option value="sales">Name (Z - A)</option>
+                                <option value="rating">Price (Low &gt; High)</option>
+                                <option value="date">Rating (Lowest)</option>
+                                <option value="price-asc">Model (A - Z)</option>
+                                <option value="price-asc">Model (Z - A)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- product-select-box end -->
+                </div>
+                <!-- shop-top-bar end -->
+                <!-- shop-products-wrapper start -->
+                <div class="shop-products-wrapper">
+                    <div class="tab-content">
+                        <div id="grid-view" class="tab-pane fade active show" role="tabpanel">
+                            <div class="product-area shop-product-area">
+                                <div class="row">
+                                    {{!-- {{#each listItemByBrand}}
+                                    <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+                                        <!-- single-product-wrap start -->
+                                        <div class="single-product-wrap">
+                                            <div class="product-image">
+                                                <a href="/single-product?id={{laptop_id}}">
+                                                    <img src="{{image}}" alt="Li's Product Image">
+                                                </a>
+                                                <span class="sticker">New</span>
+                                            </div>
+                                            <div class="product_desc">
+                                                <div class="product_desc_info">
+                                                    <div class="product-review">
+                                                        <h5 class="manufacturer">
+                                                            <a href="/single-product">{{manufacture}}</a>
+                                                        </h5>
+                                                    </div>
+                                                    <h4><a class="product_name"
+                                                            href="/single-product">{{laptop_name}}</a></h4>
+                                                    <div class="price-box">
+                                                        <span class="new-price">{{price}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="add-actions">
+                                                    <ul class="add-actions-link">
+                                                        <li class="add-cart active"><a href="/shopping-cart">Add to
+                                                                cart</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- single-product-wrap end -->
+                                    </div>
+                                    {{/each}} --}}
+                                    
+                                    {{#each listPro}}
+                                    <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+                                        <!-- single-product-wrap start -->
+                                        <div class="single-product-wrap">
+                                            <div class="product-image">
+                                                <a href="/single-product?id={{laptop_id}}">
+                                                    <img src="{{image}}" alt="Li's Product Image">
+                                                </a>
+                                                <span class="sticker">New</span>
+                                            </div>
+                                            <div class="product_desc">
+                                                <div class="product_desc_info">
+                                                    <div class="product-review">
+                                                        <h5 class="manufacturer">
+                                                            <a href="/single-product">{{manufacture}}</a>
+                                                        </h5>
+                                                    </div>
+                                                    <h4><a class="product_name"
+                                                            href="/single-product">{{laptop_name}}</a></h4>
+                                                    <div class="price-box">
+                                                        <span class="new-price">{{price}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="add-actions">
+                                                    <ul class="add-actions-link">
+                                                        <li class="add-cart active"><a href="/shopping-cart">Add to
+                                                                cart</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- single-product-wrap end -->
+                                    </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pagination">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 pt-xs-15">
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <ul class="pagination-box pt-xs-20 pb-xs-15">                                     
+                                        {{#each listPage}}
+                                        <li><a href="/shop?page={{this}}">{{this}}</a></li>
+                                        {{/each}}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- shop-products-wrapper end -->
+            </div>
+
+            <div class="col-lg-3 order-2 order-lg-1">
+                <!--sidebar-categores-box start  -->
+                <div class="sidebar-categores-box">
+                    <div class="sidebar-title">
+                        <h2>Filter By</h2>
+                    </div>
+                    <!-- btn-clear-all start -->
+                    <button class="btn-clear-all mb-sm-30 mb-xs-30">Clear all</button>
+                    <!-- btn-clear-all end -->
+                    <!-- filter-sub-area start -->
+
+                    <div class="filter-sub-area">
+                        <h5 class="filter-sub-titel">Brand</h5>
+                        <div class="categori-checkbox">
+                            <form>
+                                <ul>
+                                    <li>
+                                        <input id="dell" type="checkbox" class="manufacture" name="manufacture" value="manufac001">
+                                        <label for="dell">Macbook</label>
+                                    </li>
+                                    <li>
+                                        <input id="asus" type="checkbox" class="manufacture" name="manufacture" value="manufac002">
+                                        <label for="asus">Asus</label>
+                                    </li>
+                                    <li>
+                                        <input id="dell" type="checkbox" class="manufacture" name="manufacture" value="manufac003">
+                                        <label for="dell">Dell</label>
+                                    </li>
+                                </ul>
+                                <button class="btn btn-primary" type="submit">Lọc</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- filter-sub-area end -->
+                </div>
+                <!--sidebar-categores-box end  -->
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Content Wraper Area End Here -->
