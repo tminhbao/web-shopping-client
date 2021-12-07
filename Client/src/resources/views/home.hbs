@@ -1,0 +1,102 @@
+<div class="header-top">
+    <div class="container">
+        <div class="row">
+            <!-- Begin Header Top Right Area -->
+            <div class="col-lg-12 col-md-8">
+                <div class="header-top-right">
+                    <ul class="ht-menu">
+                        <!-- Begin Setting Area -->
+                        <li>
+                            {{#if user}}
+                            <div class="ht-setting-trigger">
+                                <h4>
+                                    Hello, {{user.firstname}}
+                                </h4>
+                            </div>
+                            {{else}}
+                            <div class="ht-setting-trigger">
+                                <span>
+                                    Login/Register
+                                </span>
+                            </div>
+                            {{/if}}
+                            <div class="setting ht-setting">
+                                <ul class="ht-setting-list">
+                                    {{#if user}}
+                                    <li><a href="/account">My Account</a></li>
+                                    <li><a href="/checkout">Checkout</a></li>
+                                    {{!-- <li><a href="/logout">Log Out</a></li> --}}
+                                     <form method="POST" action="/logout">
+                                    <button class="btn btn-primary">Log Out</button>
+                                    </form>                                   
+                                    
+                                    {{else}}
+                                    <li><a href="/login">Login</a></li>
+                                    <li><a href="/register">Register</a></li>
+                                    {{/if}}
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- Setting Area End Here -->
+
+                    </ul>
+                </div>
+            </div>
+            <!-- Header Top Right Area End Here -->
+        </div>
+    </div>
+</div>
+<!-- Begin Li's Laptop Product Area -->
+<section class="product-area li-laptop-product pt-60 pb-45">
+    <div class="container">
+        <div class="row">
+            <!-- Begin Li's Section Area -->
+            <div class="col-lg-12">
+                <div class="li-section-title">
+                    <h2>
+                        <span>Laptop</span>
+                    </h2>
+                </div>
+                <div class="row">
+                    <div class="product-active owl-carousel">
+                        {{#each listPro}}
+                        <div class="col-lg-12">
+                            <!-- single-product-wrap start -->
+                            <div class="single-product-wrap">
+                                <div class="product-image">
+                                    <a href="/single-product">
+                                        <img src="{{image}}" alt="Li's Product Image">
+                                    </a>
+                                    <span class="sticker">New</span>
+                                </div>
+                                <div class="product_desc">
+                                    <div class="product_desc_info">
+                                        <div class="product-review">
+                                            <h5 class="manufacturer">
+                                                <a href="/shop">{{manufacture}}</a>
+                                            </h5>
+                                        </div>
+                                        <h4><a class="product_name" href="/single-product">{{laptop_name}}</a>
+                                        </h4>
+                                        <div class="price-box">
+                                            <span class="new-price">{{price}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="add-actions">
+                                        <ul class="add-actions-link">
+                                            <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- single-product-wrap end -->
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+            <!-- Li's Section Area End Here -->
+        </div>
+    </div>
+</section>
+<!-- Li's Laptop Product Area End Here -->

@@ -1,0 +1,89 @@
+<div class="container bootstrap snippets bootdey">
+    <hr>
+    <ol class="breadcrumb">
+    	<li><a href="#">Home</a></li>
+		<li><a href="#">/Account</a></li>
+	</ol>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="well profile">
+                <img class="user img-circle pull-left clearfix" height="54" src="https://bootdey.com/img/Content/user_1.jpg" alt="">
+                <h3 class="name pull-left clearfix">{{user.username}}</h3>
+                <div class="clearfix"></div>
+                <ul class="nav nav-tabs mt-4">
+                    <li class="active">
+                        <a href="#tab" data-toggle="tab">
+                        	Overview
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="#tab2" data-toggle="tab">
+                        	Account
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                                <br>
+                                    <br>
+                                    {{#if user}}
+                                    Username: {{user.username}}</br>
+                                    Firstname: {{user.firstname}}</br>
+                                    Lastname: {{user.lastname}}</br>
+                                    Tel: {{user.mob_no}}</br>
+                                    {{/if}}
+                                    <br>
+                                </p>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab2">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="basic">
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <label for="inputfullname" class="col-lg-2 control-label">First Name</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" class="form-control" id="inputfullname" placeholder="First Name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputlastname" class="col-lg-2 control-label">Last Name</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" class="form-control" id="inputlastname" placeholder="Last Name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputtext" class="col-lg-2 control-label">Email</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" class="form-control" id="inputemail" placeholder="Email">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputpassword" class="col-lg-2 control-label">Password</label>
+                                                <div class="col-lg-10">
+                                                    <input type="password" class="form-control" id="inputpassword" placeholder="Password">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label  class="col-lg-2 control-label">Photo</label>
+                                                <div class="col-lg-10">
+                                                    <input type="file" class="filestyle" data-classbutton="btn btn-default btn-lg" data-input="false" id="filestyle-0" tabindex="-1" style="position: fixed; left: -500px;"><div class="bootstrap-filestyle input-group"><input type="text" class="form-control " disabled="" placeholder="Choose file"> <span class="input-group-btn" tabindex="0">  <label for="filestyle-0" class="btn btn-default btn-lg">    <span class="glyphicon glyphicon-folder-open"></span>   </label></span></div>
+                                                </div>    
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>                    
