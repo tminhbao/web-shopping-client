@@ -1,3 +1,4 @@
+const Product = require("../../models/product");
 const ProductModel = require("../../models/product");
 // class HomeController {
 //     async index(req, res) {
@@ -11,8 +12,8 @@ const ProductModel = require("../../models/product");
 // module.exports = new HomeController;
 
 const index = async (req, res) => {
-    const page = req.query.page || 1;
-    const { listItem } = await ProductModel.getList(page)
-    return res.render('home', { listPro: listItem, user:req.user });
-}
-module.exports = {index}
+  const page = req.query.page || 1;
+  const { listItem } = await ProductModel.getList(page);
+  return res.render("home", { listPro: listItem, user: req.user });
+};
+module.exports = { index };
