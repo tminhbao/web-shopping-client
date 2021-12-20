@@ -16,6 +16,8 @@ const executeQuery = (query) => {
 
 const getList = async (page, brand) => {
   const offset = (page || 1 - 1) * ITEM_PER_PAGE;
+
+  // Lọc sản phẩm nếu không có filter theo brand
   if (!brand) {
     const sqlPaginate = `SELECT * FROM laptop LIMIT ${ITEM_PER_PAGE} OFFSET ${offset};`;
     const sqlTotalItem = `SELECT COUNT(*) AS totalItem FROM laptop`;
@@ -26,7 +28,9 @@ const getList = async (page, brand) => {
     ]);
     const totalPage = Math.ceil((totalItem[0].totalItem || 0) / ITEM_PER_PAGE);
     return { listItem, totalPage, page };
-  } else {
+  }
+  // Lọc sản phẩm theo brand
+  else {
     const sqlPaginate = `SELECT * FROM laptop WHERE manufacture = '${brand}' LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
     const sqlTotalItem = `SELECT COUNT(*) AS totalItem FROM laptop WHERE manufacture = '${brand}'`;
     const [listItem, totalItem] = await Promise.all([
@@ -60,6 +64,10 @@ const getProductByNameZA = async () => {
 
 const getProductByPriceLowHigh = async () => {
   const sqlProductByPriceLowHigh = "SELECT * FROM laptop ORDER BY price ASC";
+};
+
+const getProductByPriceHighLow = async () => {
+  const sqlProductByPriceHighLow = "SELECT * FROM laptop ORDER BY price DESC";
 };
 
 module.exports = { getList, getProductDetail, getProductByBrand };

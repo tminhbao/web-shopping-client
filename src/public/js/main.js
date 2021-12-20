@@ -588,16 +588,3 @@ const myParam = urlParams.get("error");
 if (myParam == "Incorrect_Credential") {
   $("#loginAlert").show();
 }
-
-// const macbookBrand = document.getElementById("macbook");
-// macbookBrand.onclick = () => {
-//   macbookBrand.checked = true;
-//   console.log("Đã click");
-// };
-
-const btnFilter = document.querySelector(".btn-filter");
-btnFilter.onclick = () => {
-  const macbookBrand = document.getElementById("macbook");
-  macbookBrand.checked = true;
-  console.log("Cái lùm míaaaaa");
-};

@@ -41,18 +41,22 @@
           </div>
           <!-- product-select-box start -->
           <div class="product-select-box">
-            <div class="product-short">
+            <form class="product-short">
               <p>Sort By:</p>
-              <select class="nice-select">
-                <option value="trending">Relevance</option>
-                <option value="sales">Name (A - Z)</option>
-                <option value="sales">Name (Z - A)</option>
-                <option value="rating">Price (Low &gt; High)</option>
-                <option value="rating">Price (High &gt; Low)</option>
-                <option value="price-asc">Model (A - Z)</option>
-                <option value="price-asc">Model (Z - A)</option>
-              </select>
-            </div>
+                <input style="height: 16px; width:26px" type="checkbox" value="sales" name="ten-A-Z">Name (A - Z)</input>
+                <input style="height: 16px; width:26px" type="checkbox" value="sales" name="ten-Z-A">Name (Z - A)</input>
+                <input style="height: 16px; width:26px" type="checkbox" value="rating" name="price-low-high">Price (Low &gt; High)</input>
+                <input style="height: 16px; width:26px" type="checkbox" value="rating" name="price-high-low">Price (High &gt; Low)</input>
+                {{!-- <input style="height: 16px; width:26px" type="checkbox" value="price-asc">Model (A - Z)</input>
+                <input style="height: 16px; width:26px" type="checkbox" value="price-asc">Model (Z - A)</input> --}}
+              {{!-- <select class="nice-select">
+              </select> --}}
+              <button
+                type="submit"
+                class="ml-2 btn btn-secondary"
+                style="height: 30px;"
+              >Sort</button>
+            </form>
           </div>
           <!-- product-select-box end -->
         </div>
