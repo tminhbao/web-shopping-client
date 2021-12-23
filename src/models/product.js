@@ -15,7 +15,7 @@ const executeQuery = (query) => {
 // Lấy danh sách, tham số truyền vào là một page
 
 const getList = async (page, brand) => {
-  const offset = (page - 1 || 1 - 1) * ITEM_PER_PAGE;
+  const offset = (page - 1|| 1 - 1) * ITEM_PER_PAGE;
 
   // Lọc sản phẩm nếu không có filter theo brand
   if (!brand) {
