@@ -7,7 +7,7 @@ class ShopController {
     );
     const listPage = [];
     for (let i = 0; i < totalPage; i++) {
-      listPage.push(i);
+      listPage.push(i + 1);
     }
     res.render("shop", { listPro: listItem, listPage, page });
   }

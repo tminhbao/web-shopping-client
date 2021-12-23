@@ -15,11 +15,12 @@ const executeQuery = (query) => {
 // Lấy danh sách, tham số truyền vào là một page
 
 const getList = async (page, brand) => {
-  const offset = (page || 1 - 1) * ITEM_PER_PAGE;
+  const offset = (page - 1 || 1 - 1) * ITEM_PER_PAGE;
 
   // Lọc sản phẩm nếu không có filter theo brand
   if (!brand) {
-    const sqlPaginate = `SELECT * FROM laptop LIMIT ${ITEM_PER_PAGE} OFFSET ${offset};`;
+    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id LIMIT ${ITEM_PER_PAGE} OFFSET ${offset};`
+    //const sqlPaginate = `SELECT * FROM laptop LIMIT ${ITEM_PER_PAGE} OFFSET ${offset};`;
     const sqlTotalItem = `SELECT COUNT(*) AS totalItem FROM laptop`;
 
     const [listItem, totalItem] = await Promise.all([
