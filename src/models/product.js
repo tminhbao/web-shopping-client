@@ -44,7 +44,7 @@ const getList = async (page, brand) => {
 };
 
 const getProductDetail = async (id) => {
-  const sqlProductDetail = `SELECT * FROM laptop HAVING laptop_id = '${id}'`;
+  const sqlProductDetail = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id HAVING laptop_id = '${id}'`;
   const productDetail = await executeQuery(sqlProductDetail);
   return productDetail;
 };
