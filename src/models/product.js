@@ -55,8 +55,17 @@ const getProductByBrand = async (brand) => {
   return productByBrand;
 };
 
-const getProductByNameAZ = async () => {
-  const sqlProducByNameAZ = "SELECT * FROM laptop ORDER BY laptop_name ASC";
+const getProductByNameAZ = async (req, res) => {
+  if (req.body === "ten-A-Z=sales") {
+    const sqlPaginate = `SELECT * FROM laptop WHERE manufacture = '${brand}' LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
+    const sqlTotalItem = "SELECT * FROM laptop ORDER BY laptop_name ASC";
+    const [listItem, totalItem] = await Promise.all([
+      executeQuery(sqlPaginate),
+      executeQuery(sqlTotalItem),
+    ]);
+    const totalPage = Math.ceil((totalItem[0].totalItem || 0) / ITEM_PER_PAGE);
+    return { listItem, totalPage, page };
+  }
 };
 
 const getProductByNameZA = async () => {
