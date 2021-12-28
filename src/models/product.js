@@ -12,14 +12,13 @@ const executeQuery = (query) => {
   });
 };
 
-// Lấy danh sách, tham số truyền vào là một page
-
+// Lấy danh sách sản phẩm, tham số truyền vào là page & brand
 const getList = async (page, brand) => {
-  const offset = (page - 1|| 1 - 1) * ITEM_PER_PAGE;
+  const offset = (page - 1 || 1 - 1) * ITEM_PER_PAGE;
 
-  // Lọc sản phẩm nếu không có filter theo brand
+  // Lấy danh sách sản phẩm (trường hợp KHÔNG CÓ brand)
   if (!brand) {
-    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id LIMIT ${ITEM_PER_PAGE} OFFSET ${offset};`
+    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id LIMIT ${ITEM_PER_PAGE} OFFSET ${offset};`;
     //const sqlPaginate = `SELECT * FROM laptop LIMIT ${ITEM_PER_PAGE} OFFSET ${offset};`;
     const sqlTotalItem = `SELECT COUNT(*) AS totalItem FROM laptop`;
 
@@ -30,7 +29,7 @@ const getList = async (page, brand) => {
     const totalPage = Math.ceil((totalItem[0].totalItem || 0) / ITEM_PER_PAGE);
     return { listItem, totalPage, page };
   }
-  // Lọc sản phẩm theo brand
+  // Lấy danh sách sản phẩm (trường hợp CÓ brand)
   else {
     const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id WHERE manufacture = '${brand}' LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
     const sqlTotalItem = `SELECT COUNT(*) AS totalItem FROM laptop WHERE manufacture = '${brand}'`;
@@ -43,16 +42,11 @@ const getList = async (page, brand) => {
   }
 };
 
+// Xem chi tiết sản phẩm (theo ID)
 const getProductDetail = async (id) => {
   const sqlProductDetail = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id HAVING laptop_id = '${id}'`;
   const productDetail = await executeQuery(sqlProductDetail);
   return productDetail;
-};
-
-const getProductByBrand = async (brand) => {
-  const sqlProducByBrand = `SELECT * FROM laptop WHERE manufacture = '${brand}'`;
-  const productByBrand = await executeQuery(sqlProducByBrand);
-  return productByBrand;
 };
 
 const getProductByNameAZ = async (req, res) => {
@@ -78,6 +72,7 @@ const getProductByPriceLowHigh = async () => {
 
 const getProductByPriceHighLow = async () => {
   const sqlProductByPriceHighLow = "SELECT * FROM laptop ORDER BY price DESC";
+  console.log("Cái quần què");
 };
 
-module.exports = { getList, getProductDetail, getProductByBrand };
+module.exports = { getList, getProductDetail };
