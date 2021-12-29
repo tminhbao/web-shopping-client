@@ -50,7 +50,7 @@ const getProductDetail = async (id) => {
 };
 
 const getProductByNameAZ = async (req, res) => {
-  if (req.body === "ten-A-Z=sales") {
+  if (req.body === "tenAZ==on") {
     const sqlPaginate = `SELECT * FROM laptop WHERE manufacture = '${brand}' LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
     const sqlTotalItem = "SELECT * FROM laptop ORDER BY laptop_name ASC";
     const [listItem, totalItem] = await Promise.all([
@@ -75,4 +75,4 @@ const getProductByPriceHighLow = async () => {
   console.log("Cái quần què");
 };
 
-module.exports = { getList, getProductDetail };
+module.exports = { getList, getProductDetail, getProductByNameAZ };
