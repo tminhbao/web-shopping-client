@@ -9,7 +9,14 @@ class ShopController {
     for (let i = 0; i < totalPage; i++) {
       listPage.push(i + 1);
     }
-    res.render("shop", { listPro: listItem, listPage, page });
+    const listProductNameAZ = await ProductModel.getProductByNameAZ(req, res);
+    res.render("shop", {
+      listPro: listItem,
+      listPage,
+      page,
+      listProductNameAZ: listProductNameAZ,
+    });
+    console.log(listProductNameAZ);
   }
 }
 module.exports = new ShopController();
