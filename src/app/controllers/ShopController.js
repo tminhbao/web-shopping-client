@@ -5,18 +5,22 @@ class ShopController {
       req.query.page || 1,
       req.query.manufacture
     );
+    const listProductNameAZ = await ProductModel.getProductByNameAZ(
+      req.query.tenAZ,
+      req.query.page || 1
+    );
     const listPage = [];
     for (let i = 0; i < totalPage; i++) {
       listPage.push(i + 1);
     }
-    const listProductNameAZ = await ProductModel.getProductByNameAZ(req, res);
+
     res.render("shop", {
       listPro: listItem,
       listPage,
       page,
       listProductNameAZ: listProductNameAZ,
+      user: req.user,
     });
-    console.log(listProductNameAZ);
   }
 }
 module.exports = new ShopController();

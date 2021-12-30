@@ -62,6 +62,56 @@
       <header>
         <!-- Begin Header Top Area -->
 
+        <div class="header-top">
+          <div class="container">
+            <div class="row">
+              <!-- Begin Header Top Right Area -->
+              <div class="col-lg-12 col-md-8">
+                <div class="header-top-right">
+                  <ul class="ht-menu">
+                    <!-- Begin Setting Area -->
+                    <li>
+                      {{#if user}}
+                        <div class="ht-setting-trigger">
+                          <h4>
+                            Hello,
+                            {{user.firstname}}
+                          </h4>
+                        </div>
+                      {{else}}
+                        <div class="ht-setting-trigger">
+                          <span>
+                            Login/Register
+                          </span>
+                        </div>
+                      {{/if}}
+                      <div class="setting ht-setting">
+                        <ul class="ht-setting-list">
+                          {{#if user}}
+                            <li><a href="/account">My Account</a></li>
+                            <li><a href="/checkout">Checkout</a></li>
+                            {{! <li><a href="/logout">Log Out</a></li> }}
+                            <form method="POST" action="/logout">
+                              <button class="btn btn-primary">Log Out</button>
+                            </form>
+
+                          {{else}}
+                            <li><a href="/login">Login</a></li>
+                            <li><a href="/register">Register</a></li>
+                          {{/if}}
+                        </ul>
+                      </div>
+                    </li>
+                    <!-- Setting Area End Here -->
+
+                  </ul>
+                </div>
+              </div>
+              <!-- Header Top Right Area End Here -->
+            </div>
+          </div>
+        </div>
+
         <!-- Header Top Area End Here -->
         <!-- Begin Header Middle Area -->
         <div class="header-middle pl-sm-0 pr-sm-0 pl-xs-0 pr-xs-0">
