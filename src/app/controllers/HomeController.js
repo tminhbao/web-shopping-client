@@ -1,4 +1,3 @@
-const Product = require("../../models/product");
 const ProductModel = require("../../models/product");
 // class HomeController {
 //     async index(req, res) {
