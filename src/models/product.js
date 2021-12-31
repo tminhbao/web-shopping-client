@@ -48,23 +48,48 @@ const getProductDetail = async (id) => {
   return productDetail;
 };
 
-const getProductByNameAZ = async (tenAZ, page) => {
+const getProductByNameAZ = async (tenAZ, pageNameAZ) => {
   if (tenAZ === "on") {
-    const offset = (page - 1 || 1 - 1) * ITEM_PER_PAGE;
-    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id ORDER BY laptop_name LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
+    const offset = (pageNameAZ - 1 || 1 - 1) * ITEM_PER_PAGE;
+    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id ORDER BY name LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
     //const sqlPaginate = `SELECT * FROM laptop   LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
     const sqlTotalItem = `SELECT COUNT(*) AS totalItem FROM laptop`;
-    const [listItem, totalItem] = await Promise.all([
+    const [listProductNameAZ, totalItem] = await Promise.all([
       executeQuery(sqlPaginate),
       executeQuery(sqlTotalItem),
     ]);
-    const totalPage = Math.ceil((totalItem[0].totalItem || 0) / ITEM_PER_PAGE);
-    return { listItem, totalPage, page };
+    const totalPageNameAZ = Math.ceil(
+      (totalItem[0].totalItem || 0) / ITEM_PER_PAGE
+    );
+    return { listProductNameAZ, totalPageNameAZ, pageNameAZ };
+  } else {
+    const listProductNameAZ = null;
+    const totalPageNameAZ = 0;
+    const pageNameAZ = 0;
+    return { listProductNameAZ, totalPageNameAZ, pageNameAZ };
   }
 };
 
-const getProductByNameZA = async () => {
-  const sqlProducByNameZA = "SELECT * FROM laptop ORDER BY laptop_name DESC";
+const getProductByNameZA = async (tenZA, pageNameZA) => {
+  if (tenZA === "on") {
+    const offset = (pageNameZA - 1 || 1 - 1) * ITEM_PER_PAGE;
+    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id ORDER BY name DESC LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
+    //const sqlPaginate = `SELECT * FROM laptop   LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
+    const sqlTotalItem = `SELECT COUNT(*) AS totalItem FROM laptop`;
+    const [listProductNameZA, totalItem] = await Promise.all([
+      executeQuery(sqlPaginate),
+      executeQuery(sqlTotalItem),
+    ]);
+    const totalPageNameZA = Math.ceil(
+      (totalItem[0].totalItem || 0) / ITEM_PER_PAGE
+    );
+    return { listProductNameZA, totalPageNameZA, pageNameZA };
+  } else {
+    const listProductNameZA = null;
+    const totalPageNameZA = 0;
+    const pageNameZA = 0;
+    return { listProductNameZA, totalPageNameZA, pageNameZA };
+  }
 };
 
 const getProductByPriceLowHigh = async () => {
@@ -76,4 +101,9 @@ const getProductByPriceHighLow = async () => {
   console.log("Cái quần què");
 };
 
-module.exports = { getList, getProductDetail, getProductByNameAZ };
+module.exports = {
+  getList,
+  getProductDetail,
+  getProductByNameAZ,
+  getProductByNameZA,
+};
