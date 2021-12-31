@@ -21,7 +21,7 @@ class ShopController {
       listPageNameAZ.push(i + 1);
     }
 
-    // Sắp xếp sản phẩm theo tên từ Z -->
+    // Sắp xếp sản phẩm theo tên từ Z --> A
     const { listProductNameZA, pageNameZA, totalPageNameZA } =
       await ProductModel.getProductByNameZA(
         req.query.tenZA,
@@ -30,6 +30,28 @@ class ShopController {
     const listPageNameZA = [];
     for (let i = 0; i < totalPageNameZA; i++) {
       listPageNameZA.push(i + 1);
+    }
+
+    // Sắp xếp sản phẩm theo giá từ thấp tới cao
+    const { listProductPriceLowHigh, pagePriceLowHigh, totalPagePriceLowHigh } =
+      await ProductModel.getProductByPriceLowHigh(
+        req.query.pricelowhigh,
+        req.query.page || 1
+      );
+    const listPagePriceLowHigh = [];
+    for (let i = 0; i < totalPagePriceLowHigh; i++) {
+      listPagePriceLowHigh.push(i + 1);
+    }
+
+    // Sắp xếp sản phẩm theo giá từ cao tới thấp\
+    const { listProductPriceHighLow, pagePriceHighLow, totalPagePriceHighLow } =
+      await ProductModel.getProductByPriceHighLow(
+        req.query.pricehighlow,
+        req.query.page || 1
+      );
+    const listPagePriceHighLow = [];
+    for (let i = 0; i < totalPagePriceHighLow; i++) {
+      listPagePriceHighLow.push(i + 1);
     }
 
     if (req.query.tenAZ === "on") {
@@ -44,6 +66,20 @@ class ShopController {
         listProductNameZA: listProductNameZA,
         listPageNameZA,
         pageNameZA,
+        user: req.user,
+      });
+    } else if (req.query.pricelowhigh === "on") {
+      res.render("shop", {
+        listProductPriceLowHigh: listProductPriceLowHigh,
+        listPagePriceLowHigh,
+        pagePriceLowHigh,
+        user: req.user,
+      });
+    } else if (req.query.pricehighlow === "on") {
+      res.render("shop", {
+        listProductPriceHighLow: listProductPriceHighLow,
+        listPagePriceHighLow,
+        pagePriceHighLow,
         user: req.user,
       });
     } else {

@@ -48,6 +48,7 @@ const getProductDetail = async (id) => {
   return productDetail;
 };
 
+// Lọc sản phẩm theo tên từ A --> Z
 const getProductByNameAZ = async (tenAZ, pageNameAZ) => {
   if (tenAZ === "on") {
     const offset = (pageNameAZ - 1 || 1 - 1) * ITEM_PER_PAGE;
@@ -70,6 +71,7 @@ const getProductByNameAZ = async (tenAZ, pageNameAZ) => {
   }
 };
 
+// Lọc sản phẩm theo tên từ Z --> A
 const getProductByNameZA = async (tenZA, pageNameZA) => {
   if (tenZA === "on") {
     const offset = (pageNameZA - 1 || 1 - 1) * ITEM_PER_PAGE;
@@ -92,13 +94,47 @@ const getProductByNameZA = async (tenZA, pageNameZA) => {
   }
 };
 
-const getProductByPriceLowHigh = async () => {
-  const sqlProductByPriceLowHigh = "SELECT * FROM laptop ORDER BY price ASC";
+// Lọc sản phẩm theo giá từ thấp tới cao
+const getProductByPriceLowHigh = async (pricelowhigh, pagePriceLowHigh) => {
+  if (pricelowhigh === "on") {
+    const offset = (pagePriceLowHigh - 1 || 1 - 1) * ITEM_PER_PAGE;
+    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id ORDER BY price LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
+    const sqlTotalItem = `SELECT COUNT(*) AS totalItem FROM laptop`;
+    const [listProductPriceLowHigh, totalItem] = await Promise.all([
+      executeQuery(sqlPaginate),
+      executeQuery(sqlTotalItem),
+    ]);
+    const totalPagePriceLowHigh = Math.ceil(
+      (totalItem[0].totalItem || 0) / ITEM_PER_PAGE
+    );
+    return { listProductPriceLowHigh, totalPagePriceLowHigh, pagePriceLowHigh };
+  } else {
+    const listProductPriceLowHigh = null;
+    const totalPagePriceLowHigh = 0;
+    const pagePriceLowHigh = 0;
+    return { listProductPriceLowHigh, totalPagePriceLowHigh, pagePriceLowHigh };
+  }
 };
-
-const getProductByPriceHighLow = async () => {
-  const sqlProductByPriceHighLow = "SELECT * FROM laptop ORDER BY price DESC";
-  console.log("Cái quần què");
+// Lọc sản phẩm theo giá từ cao tới thấp
+const getProductByPriceHighLow = async (pricehighlow, pagePriceHighLow) => {
+  if (pricehighlow === "on") {
+    const offset = (pagePriceHighLow - 1 || 1 - 1) * ITEM_PER_PAGE;
+    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id ORDER BY price LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
+    const sqlTotalItem = `SELECT COUNT(*) AS totalItem FROM laptop`;
+    const [listProductPriceHighLow, totalItem] = await Promise.all([
+      executeQuery(sqlPaginate),
+      executeQuery(sqlTotalItem),
+    ]);
+    const totalPagePriceHighLow = Math.ceil(
+      (totalItem[0].totalItem || 0) / ITEM_PER_PAGE
+    );
+    return { listProductPriceHighLow, totalPagePriceHighLow, pagePriceHighLow };
+  } else {
+    const listProductPriceHighLow = null;
+    const totalPagePriceHighLow = 0;
+    const pagePriceHighLow = 0;
+    return { listProductPriceHighLow, totalPagePriceHighLow, pagePriceHighLow };
+  }
 };
 
 module.exports = {
@@ -106,4 +142,6 @@ module.exports = {
   getProductDetail,
   getProductByNameAZ,
   getProductByNameZA,
+  getProductByPriceLowHigh,
+  getProductByPriceHighLow,
 };
