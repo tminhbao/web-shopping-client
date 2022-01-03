@@ -1,34 +1,42 @@
-const homeRouter = require('./home')
-const errorRouter = require('./404');
-const checkoutRouter = require('./checkout')
-const loginRouter = require('./login');
-const registerRouter = require('./register');
-const shopRouter = require('./shop');
-const shoppingCartRouter = require('./shopping-cart');
-const singleProductRouter = require('./single-product');
-const accountRouter = require('./account');
-const logoutRouter = require('./logout')
+const homeRouter = require("./home");
+const errorRouter = require("./404");
+const checkoutRouter = require("./checkout");
+const loginRouter = require("./login");
+const registerRouter = require("./register");
+const shopRouter = require("./shop");
+const shoppingCartRouter = require("./shopping-cart");
+const singleProductRouter = require("./single-product");
+const accountRouter = require("./account");
+const logoutRouter = require("./logout");
+const forgotRouter = require("./forgot");
+const resetPasswordRouter = require("./resetpassword");
 
 function route(app) {
-    app.use('/404', errorRouter);
+  app.use("/404", errorRouter);
 
-    app.use('/checkout', checkoutRouter);
+  app.use("/checkout", checkoutRouter);
 
-    app.use('/login', loginRouter);
+  app.use("/login", loginRouter);
 
-    app.use('/register', registerRouter);
+  app.use("/register", registerRouter);
 
-    app.use('/shop', shopRouter);
+  app.use("/shop", shopRouter);
 
-    app.use('/shopping-cart', shoppingCartRouter);
+  app.use("/shopping-cart", shoppingCartRouter);
 
-    app.use('/single-product', singleProductRouter);
+  app.use("/single-product", singleProductRouter);
 
-    app.use('/account',accountRouter)
-    
-    app.post('/logout',logoutRouter)
+  app.use("/account", accountRouter);
 
-    app.use('/', homeRouter);
+  app.post("/logout", logoutRouter);
+
+  app.use("/forgot", forgotRouter);
+
+  app.post("/forgot", forgotRouter);
+
+  app.use("/resetpassword", resetPasswordRouter);
+
+  app.use("/", homeRouter);
 }
 
 module.exports = route;

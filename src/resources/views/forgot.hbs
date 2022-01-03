@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 offset-md-4 form-gap">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="text-center">
+            <h3><i class="fa fa-lock fa-4x"></i></h3>
+            <h2 class="text-center">Forgot Password?</h2>
+            <p>You can reset your password here.</p>
+            <div>
+              {{#if msg.err}}
+                <div class="alert alert-danger">
+                  {{msg.err}}
+                </div>
+              {{/if}}
+            </div>
+            <form class="form-group" method="post" action="/forgot">
+              <div class="input-group">
+                <input
+                  id="email"
+                  name="email"
+                  placeholder="Email address"
+                  class="form-control"
+                  type="email"
+                  autocomplete="organization"
+                />
+              </div>
+              <button
+                class="btn btn-primary reset-password mt-2"
+                type="submit"
+              >Reset Password</button>
+            </form>
+
+            <input
+              type="hidden"
+              class="hide"
+              name="token"
+              id="token"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
