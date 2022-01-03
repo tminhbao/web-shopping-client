@@ -10,32 +10,22 @@ const accountRouter = require("./account");
 const logoutRouter = require("./logout");
 const forgotRouter = require("./forgot");
 const resetPasswordRouter = require("./resetpassword");
+const editInfoRouter = require("./editinfo");
 
 function route(app) {
   app.use("/404", errorRouter);
-
   app.use("/checkout", checkoutRouter);
-
   app.use("/login", loginRouter);
-
   app.use("/register", registerRouter);
-
   app.use("/shop", shopRouter);
-
   app.use("/shopping-cart", shoppingCartRouter);
-
   app.use("/single-product", singleProductRouter);
-
   app.use("/account", accountRouter);
-
   app.post("/logout", logoutRouter);
-
   app.use("/forgot", forgotRouter);
-
   app.post("/forgot", forgotRouter);
-
   app.use("/resetpassword", resetPasswordRouter);
-
+  app.use("/editinfo", editInfoRouter);
   app.use("/", homeRouter);
 }
 
