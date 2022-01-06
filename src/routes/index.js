@@ -11,6 +11,7 @@ const logoutRouter = require("./logout");
 const forgotRouter = require("./forgot");
 const resetPasswordRouter = require("./resetpassword");
 const editInfoRouter = require("./editinfo");
+const changePasswordRouter = require("./changepassword");
 
 function route(app) {
   app.use("/404", errorRouter);
@@ -26,6 +27,7 @@ function route(app) {
   app.post("/forgot", forgotRouter);
   app.use("/resetpassword", resetPasswordRouter);
   app.use("/editinfo", editInfoRouter);
+  app.use("/changepassword", changePasswordRouter);
   app.use("/", homeRouter);
 }
 

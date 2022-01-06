@@ -18,6 +18,7 @@ let createNewUser = (data) => {
           lastname: data.lastname,
           email: data.email,
           mob_no: data.mob_no,
+          address: data.address,
           password: bcrypt.hashSync(data.password, salt),
         };
 
