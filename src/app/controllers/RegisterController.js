@@ -29,6 +29,7 @@ class RegisterController {
         lastname: req.body.lastname,
         email: req.body.email,
         mob_no: req.body.mob,
+        address: req.body.address,
         password: req.body.password,
       };
       await registerService.createNewUser(newUser);
