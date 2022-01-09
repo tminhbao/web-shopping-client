@@ -5,27 +5,35 @@ const index = (req, res) => {
 };
 
 const handleChangePassword = (req, res) => {
-  const newPassword = req.query.password;
-  const confirmPassword = req.query.confirmPassword;
+  const oldPassword = req.body.oldPassword;
+  const password = req.body.password;
+  const confirmPassword = req.body.confirmPassword;
   const user = req.user;
+  const userPassword = user.password;
   const email = user.email;
-  async function hashIt(password) {
-    const salt = await bcrypt.genSalt(6);
-    const hashed = await bcrypt.hash(password, salt);
-  }
-  hashIt(newPassword);
-  if (confirmPassword != newPassword) {
-    alert("Confirm Password chưa đúng, xin mời nhập lại ");
-    res.redirect("/changepassword");
+
+  let salt = bcrypt.genSaltSync(10);
+  const oldPasswordUser = bcrypt.hashSync(oldPassword, salt);
+
+  if (oldPasswordUser == userPassword) {
+    if (confirmPassword != password) {
+      console.log("Confirm Password chưa đúng, xin mời nhập lại ");
+      res.redirect("/changepassword");
+    } else {
+      let salt = bcrypt.genSaltSync(10);
+      const newPassword = bcrypt.hashSync(password, salt);
+      db.query(
+        `UPDATE users SET password = '${newPassword}' WHERE email = '${email}'`,
+        function (err, data) {
+          if (err) throw err;
+          console.log(data.affectedRows + " record(s) updated");
+        }
+      );
+      res.redirect("/");
+    }
   } else {
-    db.query(
-      `UPDATE users SET password = '${newPassword}' WHERE email = '${email}'`,
-      function (err, data) {
-        if (err) throw err;
-        console.log(data.affectedRows + " record(s) updated");
-      }
-    );
-    res.redirect("/");
+    console.log("Mật khẩu cũ chưa đúng");
+    res.redirect("/changepassword");
   }
 };
 module.exports = { index, handleChangePassword };
