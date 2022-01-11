@@ -137,6 +137,23 @@ const getProductByPriceHighLow = async (pricehighlow, pagePriceHighLow) => {
   }
 };
 
+// Tìm kiếm sản phẩm và phân trang
+const getProductBySearching = async (name, pageSearching) => {
+  const offset = (pageSearching - 1 || 1 - 1) * ITEM_PER_PAGE;
+  const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id WHERE manufacture_name LIKE '${name}' OR model_name LIKE '${name}' OR laptop_name LIKE '${name}' LIMIT ${ITEM_PER_PAGE} OFFSET ${offset} `;
+  const sqlTotalItem = `SELECT COUNT(*) as totalItem FROM laptop,manufacture,model WHERE laptop.manufacture = manufacture.manufacture_id AND laptop.model = model.model_id AND manufacture.manufacture_name LIKE '${name}' OR model.model_name LIKE '${name}' OR laptop.laptop_name LIKE '${name}' `;
+  const [listProductSearching, totalItem] = await Promise.all([
+    executeQuery(sqlPaginate),
+    executeQuery(sqlTotalItem),
+  ]);
+  console.log(listProductSearching);
+  console.log(totalItem);
+  const totalPageSearching = Math.ceil(
+    (totalItem[0].totalItem || 0) / ITEM_PER_PAGE
+  );
+  return { listProductSearching, totalPageSearching, pageSearching };
+};
+
 module.exports = {
   getList,
   getProductDetail,
@@ -144,4 +161,5 @@ module.exports = {
   getProductByNameZA,
   getProductByPriceLowHigh,
   getProductByPriceHighLow,
+  getProductBySearching,
 };
