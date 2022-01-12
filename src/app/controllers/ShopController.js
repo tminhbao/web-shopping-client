@@ -65,6 +65,20 @@ class ShopController {
       listPageSearching.push(i + 1);
     }
 
+    // Tìm kiếm sản phẩm nâng cao
+    const {
+      listProductSearchingMultiple,
+      pageSearchingMultiple,
+      totalPageSearchingMultiple,
+    } = await ProductModel.getProductBySearchingMultiple(
+      req.query.search,
+      req.query.page || 1
+    );
+    const listPageSearchingMultiple = [];
+    for (let i = 0; i < totalPageSearchingMultiple; i++) {
+      listPageSearchingMultiple.push(i + 1);
+    }
+
     if (req.query.tenAZ === "on") {
       res.render("shop", {
         listProductNameAZ: listProductNameAZ,
