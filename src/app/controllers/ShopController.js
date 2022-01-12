@@ -43,7 +43,7 @@ class ShopController {
       listPagePriceLowHigh.push(i + 1);
     }
 
-    // Sắp xếp sản phẩm theo giá từ cao tới thấp\
+    // Sắp xếp sản phẩm theo giá từ cao tới thấp
     const { listProductPriceHighLow, pagePriceHighLow, totalPagePriceHighLow } =
       await ProductModel.getProductByPriceHighLow(
         req.query.pricehighlow,
@@ -52,6 +52,31 @@ class ShopController {
     const listPagePriceHighLow = [];
     for (let i = 0; i < totalPagePriceHighLow; i++) {
       listPagePriceHighLow.push(i + 1);
+    }
+
+    // Tìm kiếm sản phẩm
+    const { listProductSearching, pageSearching, totalPageSearching } =
+      await ProductModel.getProductBySearching(
+        req.query.search,
+        req.query.page || 1
+      );
+    const listPageSearching = [];
+    for (let i = 0; i < totalPageSearching; i++) {
+      listPageSearching.push(i + 1);
+    }
+
+    // Tìm kiếm sản phẩm nâng cao
+    const {
+      listProductSearchingMultiple,
+      pageSearchingMultiple,
+      totalPageSearchingMultiple,
+    } = await ProductModel.getProductBySearchingMultiple(
+      req.query.search,
+      req.query.page || 1
+    );
+    const listPageSearchingMultiple = [];
+    for (let i = 0; i < totalPageSearchingMultiple; i++) {
+      listPageSearchingMultiple.push(i + 1);
     }
 
     if (req.query.tenAZ === "on") {
@@ -82,11 +107,39 @@ class ShopController {
         pagePriceHighLow,
         user: req.user,
       });
+    } else if (req.query.search) {
+      if (req.query.search) {
+        res.render("shop", {
+          listProductSearching: listProductSearching,
+          listPageSearching,
+          pageSearching,
+          user: req.user,
+        });
+      }
     } else {
       res.render("shop", {
         listPro: listItem,
         listPage,
         page,
+        user: req.user,
+      });
+    }
+  }
+  async search(req, res) {
+    const { listProductSearching, pageSearching, totalPageSearching } =
+      await ProductModel.getProductBySearching(
+        req.query.search,
+        req.query.page || 1
+      );
+    const listPageSearching = [];
+    for (let i = 0; i < totalPageSearching; i++) {
+      listPageSearching.push(i + 1);
+    }
+    if (req.query.search) {
+      res.render("shop", {
+        listProductSearching: listProductSearching,
+        listPageSearching,
+        pageSearching,
         user: req.user,
       });
     }
