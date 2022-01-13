@@ -149,12 +149,10 @@ const getProductBySearching = async (name, pageSearching) => {
   const totalPageSearching = Math.ceil(
     (totalItem[0].totalItem || 0) / ITEM_PER_PAGE
   );
-  console.log(totalItem);
-  console.log(totalPageSearching);
   return { listProductSearching, totalPageSearching, pageSearching };
 };
 
-// Tìm kiếm nâng cao
+// Tìm kiếm nâng cao (chưa okela lắm)
 const getProductBySearchingMultiple = async (name, pageSearchingMultiple) => {
   const offset = (pageSearchingMultiple - 1 || 1 - 1) * ITEM_PER_PAGE;
   const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id WHERE manufacture_name LIKE '${name}' OR model_name LIKE '${name}' OR laptop_name LIKE '${name}' LIMIT ${ITEM_PER_PAGE} OFFSET ${offset} `;
@@ -166,13 +164,18 @@ const getProductBySearchingMultiple = async (name, pageSearchingMultiple) => {
   const totalPageSearchingMultiple = Math.ceil(
     (totalItem[0].totalItem || 0) / ITEM_PER_PAGE
   );
-  console.log(totalItem);
-  console.log(listProductSearchingMultiple);
   return {
     listProductSearchingMultiple,
     totalPageSearchingMultiple,
     pageSearchingMultiple,
   };
+};
+
+// Hiển thị sản phẩm liên quan
+const getProductRelevant = async (id) => {
+  const sqlProductRelevant = `SELECT lt1.*, manufacture_name,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, lt1.laptop_name) as name FROM laptop lt1, laptop lt2, manufacture, model WHERE lt1.manufacture = lt2.manufacture AND lt1.manufacture = manufacture.manufacture_id AND lt1.model = model.model_id AND lt2.laptop_id = '${id}' `;
+  const listProductRelevant = executeQuery(sqlProductRelevant);
+  return listProductRelevant;
 };
 
 module.exports = {
@@ -184,4 +187,5 @@ module.exports = {
   getProductByPriceHighLow,
   getProductBySearching,
   getProductBySearchingMultiple,
+  getProductRelevant,
 };
