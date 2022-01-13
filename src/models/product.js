@@ -18,7 +18,7 @@ const getList = async (page, brand) => {
 
   // Lấy danh sách sản phẩm (trường hợp KHÔNG CÓ brand)
   if (!brand) {
-    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id LIMIT ${ITEM_PER_PAGE} OFFSET ${offset};`;
+    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name, manufacture.manufacture_id as manu_id, CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id LIMIT ${ITEM_PER_PAGE} OFFSET ${offset};`;
     const sqlTotalItem = `SELECT COUNT(*) AS totalItem FROM laptop`;
 
     const [listItem, totalItem] = await Promise.all([
@@ -30,7 +30,7 @@ const getList = async (page, brand) => {
   }
   // Lấy danh sách sản phẩm (trường hợp CÓ brand)
   else {
-    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id WHERE manufacture = '${brand}' LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
+    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name, manufacture.manufacture_id as manu_id, CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id WHERE manufacture = '${brand}' LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
     const sqlTotalItem = `SELECT COUNT(*) AS totalItem FROM laptop WHERE manufacture = '${brand}'`;
     const [listItem, totalItem] = await Promise.all([
       executeQuery(sqlPaginate),
@@ -43,7 +43,7 @@ const getList = async (page, brand) => {
 
 // Xem chi tiết sản phẩm (theo ID)
 const getProductDetail = async (id) => {
-  const sqlProductDetail = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id HAVING laptop_id = '${id}'`;
+  const sqlProductDetail = `SELECT laptop.*, manufacture.manufacture_name as manu_name, manufacture.manufacture_id as manu_id, CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id HAVING laptop_id = '${id}'`;
   const productDetail = await executeQuery(sqlProductDetail);
   return productDetail;
 };
@@ -52,7 +52,7 @@ const getProductDetail = async (id) => {
 const getProductByNameAZ = async (tenAZ, pageNameAZ) => {
   if (tenAZ === "on") {
     const offset = (pageNameAZ - 1 || 1 - 1) * ITEM_PER_PAGE;
-    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id ORDER BY name LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
+    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name, manufacture.manufacture_id as manu_id, CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id ORDER BY name LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
     //const sqlPaginate = `SELECT * FROM laptop   LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
     const sqlTotalItem = `SELECT COUNT(*) AS totalItem FROM laptop`;
     const [listProductNameAZ, totalItem] = await Promise.all([
@@ -75,7 +75,7 @@ const getProductByNameAZ = async (tenAZ, pageNameAZ) => {
 const getProductByNameZA = async (tenZA, pageNameZA) => {
   if (tenZA === "on") {
     const offset = (pageNameZA - 1 || 1 - 1) * ITEM_PER_PAGE;
-    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id ORDER BY name DESC LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
+    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name, manufacture.manufacture_id as manu_id, CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id ORDER BY name DESC LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
     //const sqlPaginate = `SELECT * FROM laptop   LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
     const sqlTotalItem = `SELECT COUNT(*) AS totalItem FROM laptop`;
     const [listProductNameZA, totalItem] = await Promise.all([
@@ -98,7 +98,7 @@ const getProductByNameZA = async (tenZA, pageNameZA) => {
 const getProductByPriceLowHigh = async (pricelowhigh, pagePriceLowHigh) => {
   if (pricelowhigh === "on") {
     const offset = (pagePriceLowHigh - 1 || 1 - 1) * ITEM_PER_PAGE;
-    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id ORDER BY price LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
+    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name, manufacture.manufacture_id as manu_id, CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id ORDER BY price LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
     const sqlTotalItem = `SELECT COUNT(*) AS totalItem FROM laptop`;
     const [listProductPriceLowHigh, totalItem] = await Promise.all([
       executeQuery(sqlPaginate),
@@ -119,7 +119,7 @@ const getProductByPriceLowHigh = async (pricelowhigh, pagePriceLowHigh) => {
 const getProductByPriceHighLow = async (pricehighlow, pagePriceHighLow) => {
   if (pricehighlow === "on") {
     const offset = (pagePriceHighLow - 1 || 1 - 1) * ITEM_PER_PAGE;
-    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id ORDER BY price DESC LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
+    const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name, manufacture.manufacture_id as manu_id, CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id ORDER BY price DESC LIMIT ${ITEM_PER_PAGE} OFFSET ${offset}`;
     const sqlTotalItem = `SELECT COUNT(*) AS totalItem FROM laptop`;
     const [listProductPriceHighLow, totalItem] = await Promise.all([
       executeQuery(sqlPaginate),
@@ -140,7 +140,7 @@ const getProductByPriceHighLow = async (pricehighlow, pagePriceHighLow) => {
 // Tìm kiếm sản phẩm và phân trang
 const getProductBySearching = async (name, pageSearching) => {
   const offset = (pageSearching - 1 || 1 - 1) * ITEM_PER_PAGE;
-  const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id WHERE manufacture_name LIKE '%${name}%' OR model_name LIKE '%${name}%' OR laptop_name LIKE '%${name}%' LIMIT ${ITEM_PER_PAGE} OFFSET ${offset} `;
+  const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name, manufacture.manufacture_id as manu_id, CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id WHERE manufacture_name LIKE '%${name}%' OR model_name LIKE '%${name}%' OR laptop_name LIKE '%${name}%' LIMIT ${ITEM_PER_PAGE} OFFSET ${offset} `;
   const sqlTotalItem = `SELECT COUNT(*) as totalItem FROM laptop,manufacture,model WHERE laptop.manufacture = manufacture.manufacture_id AND laptop.model = model.model_id AND manufacture.manufacture_name LIKE '%${name}%' OR model.model_name LIKE '%${name}%' OR laptop.laptop_name LIKE '%${name}%' `;
   const [listProductSearching, totalItem] = await Promise.all([
     executeQuery(sqlPaginate),
@@ -155,7 +155,7 @@ const getProductBySearching = async (name, pageSearching) => {
 // Tìm kiếm nâng cao (chưa okela lắm)
 const getProductBySearchingMultiple = async (name, pageSearchingMultiple) => {
   const offset = (pageSearchingMultiple - 1 || 1 - 1) * ITEM_PER_PAGE;
-  const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name ,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id WHERE manufacture_name LIKE '%${name}%' OR model_name LIKE '%${name}%' OR laptop_name LIKE '%${name}%' LIMIT ${ITEM_PER_PAGE} OFFSET ${offset} `;
+  const sqlPaginate = `SELECT laptop.*, manufacture.manufacture_name as manu_name, manufacture.manufacture_id as manu_id, CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM laptop JOIN manufacture ON laptop.manufacture = manufacture.manufacture_id JOIN model ON laptop.model = model.model_id WHERE manufacture_name LIKE '%${name}%' OR model_name LIKE '%${name}%' OR laptop_name LIKE '%${name}%' LIMIT ${ITEM_PER_PAGE} OFFSET ${offset} `;
   const sqlTotalItem = `SELECT COUNT(*) as totalItem FROM laptop,manufacture,model WHERE laptop.manufacture = manufacture.manufacture_id AND laptop.model = model.model_id AND manufacture.manufacture_name LIKE '%${name}%' OR model.model_name LIKE '%${name}%' OR laptop.laptop_name LIKE '%${name}%' `;
   const [listProductSearchingMultiple, totalItem] = await Promise.all([
     executeQuery(sqlPaginate),
@@ -173,7 +173,7 @@ const getProductBySearchingMultiple = async (name, pageSearchingMultiple) => {
 
 // Hiển thị sản phẩm liên quan
 const getProductRelevant = async (id) => {
-  const sqlProductRelevant = `SELECT lt1.*, manufacture_name,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, lt1.laptop_name) as name FROM laptop lt1, laptop lt2, manufacture, model WHERE lt1.manufacture = lt2.manufacture AND lt1.manufacture = manufacture.manufacture_id AND lt1.model = model.model_id AND lt2.laptop_id = '${id}' `;
+  const sqlProductRelevant = `SELECT lt1.*, manufacture_name, manufacture.manufacture_id as manu_id, CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, lt1.laptop_name) as name FROM laptop lt1, laptop lt2, manufacture, model WHERE lt1.manufacture = lt2.manufacture AND lt1.manufacture = manufacture.manufacture_id AND lt1.model = model.model_id AND lt2.laptop_id = '${id}' `;
   const listProductRelevant = executeQuery(sqlProductRelevant);
   return listProductRelevant;
 };
