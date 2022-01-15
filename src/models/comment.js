@@ -12,16 +12,18 @@ const executeQuery = (query) => {
 };
 
 // Lấy danh sách bình luận, tham số truyền vào là page
-const getListComment = async (page, laptop_id) => {
-  const offset = (page - 1 || 1 - 1) * ITEM_PER_PAGE;
-  const sqlPaginate = `SELECT * FROM comments WHERE laptop_id = '${laptop_id}' LIMIT ${ITEM_PER_PAGE} OFFSET ${offset};`;
-  const sqlTotalItem = `SELECT COUNT(*) AS totalItem FROM comment`;
-  const [listItem, totalItem] = await Promise.all([
+const getListComment = async (pageComment, id) => {
+  const offset = (pageComment - 1 || 1 - 1) * ITEM_PER_PAGE;
+  const sqlPaginate = `SELECT * FROM comments WHERE laptop_id = '${id}' LIMIT ${ITEM_PER_PAGE} OFFSET ${offset};`;
+  const sqlTotalItem = `SELECT COUNT(*) AS totalItem FROM comments`;
+  const [listComment, totalItem] = await Promise.all([
     executeQuery(sqlPaginate),
     executeQuery(sqlTotalItem),
   ]);
-  const totalPage = Math.ceil((totalItem[0].totalItem || 0) / ITEM_PER_PAGE);
-  return { listItem, totalPage, page };
+  const totalPageComment = Math.ceil(
+    (totalItem[0].totalItem || 0) / ITEM_PER_PAGE
+  );
+  return { listComment, totalPageComment, pageComment };
 };
 
 const addComments = async (laptop_id, username, content) => {
