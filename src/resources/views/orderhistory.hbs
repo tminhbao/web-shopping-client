@@ -66,7 +66,7 @@
         <th class="font-weight-bold py-2 border-0 quantity">ID</th>
         <th class="font-weight-bold py-2 border-0">Created</th>
         <th class="font-weight-bold py-2 border-0">Customer</th>
-        <th class="font-weight-bold py-2 border-0">Total</th>
+        <th class="font-weight-bold py-2 border-0">State</th>
       </tr>
     </thead>
     <tbody>
@@ -76,7 +76,7 @@
           <td>{{id}}</td>
           <td>{{created}}</td>
           <td>{{user_id}}</td>
-          <td>{{total}}</td>
+          <td>{{state}}</td>
         {{/each}}
       </tr>
     </tbody>
@@ -99,17 +99,18 @@
   table.dataTable thead th.sorting_asc:after, table.dataTable thead
   th.sorting_desc:after { font-family: FontAwesome; position: relative
   !important; display: inline-block !important; font-size: 14px !important; top:
-  unset !important; right: unset !important; content: "\\\\\\\\f062" !important;
-  transform-origin: center center; transition: 200ms ease-out; padding-top: 0
-  !important; } /* DEFAULT SORT ICON COLOR AND PLACEMENT */ table.dataTable
-  thead th.sorting:after { transform: translateY(5px); opacity: 0; color:
-  #b0bec5 !important; } table.dataTable thead th.sorting:after, table.dataTable
-  thead th.sorting_asc:after, table.dataTable thead th.sorting_desc:after {
-  margin-left: 10px; } table.dataTable thead th.sorting_asc:after,
-  table.dataTable thead th.sorting_desc:after { color: #4285f4; } /* SORTING
-  DESC ICON ANIMATION */ table.dataTable thead th.sorting_desc:after {
-  transform: rotate(180deg); } /* REMOVING STYLES FROM ORDEROPTIONS.CSS THAT WE
-  CAN REMOVE */ table.dataTable thead th.sorting_desc:before, table.dataTable
-  thead th.sorting_asc:before { display: none; }
+  unset !important; right: unset !important; content: "\\\\\\\\\f062"
+  !important; transform-origin: center center; transition: 200ms ease-out;
+  padding-top: 0 !important; } /* DEFAULT SORT ICON COLOR AND PLACEMENT */
+  table.dataTable thead th.sorting:after { transform: translateY(5px); opacity:
+  0; color: #b0bec5 !important; } table.dataTable thead th.sorting:after,
+  table.dataTable thead th.sorting_asc:after, table.dataTable thead
+  th.sorting_desc:after { margin-left: 10px; } table.dataTable thead
+  th.sorting_asc:after, table.dataTable thead th.sorting_desc:after { color:
+  #4285f4; } /* SORTING DESC ICON ANIMATION */ table.dataTable thead
+  th.sorting_desc:after { transform: rotate(180deg); } /* REMOVING STYLES FROM
+  ORDEROPTIONS.CSS THAT WE CAN REMOVE */ table.dataTable thead
+  th.sorting_desc:before, table.dataTable thead th.sorting_asc:before { display:
+  none; }
 
 </style>
