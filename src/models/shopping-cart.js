@@ -67,6 +67,15 @@ async function getTotalMoney(user_id) {
   return totalMoney;
 }
 
+async function updateCart(user_id, laptop_id, quantity) {
+  const sqlDelete = `DELETE FROM shoppingcart WHERE laptop_id = '${laptop_id}' AND user_id = '${user_id}' `;
+  const sql = `UPDATE shoppingcart SET quantity = ${quantity} WHERE laptop_id = '${laptop_id}' AND user_id = '${user_id}'`;
+  let listCartUpdate = null;
+  if (quantity == 0) listCartUpdate = await executeQuery(sqlDelete);
+  else listCartUpdate = await executeQuery(sql);
+  return listCartUpdate;
+}
+
 // function updateCartTotal() {
 //   const cartItemContainer = document.getElementsByClassName("list-product")[0];
 //   const cartRows = cartItemContainer.getElementsByClassName("cart-row");
@@ -85,4 +94,4 @@ async function getTotalMoney(user_id) {
 //   document.getElementsByClassName("cart-total")[0].innerText = Number(total);
 // }
 
-module.exports = { addItemToCart, getCart, getTotalMoney };
+module.exports = { addItemToCart, getCart, getTotalMoney, updateCart };

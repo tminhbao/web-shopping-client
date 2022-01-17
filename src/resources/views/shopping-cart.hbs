@@ -60,12 +60,6 @@
                               value={{quantity}}
                               type="text"
                             />
-                            <div class="dec qtybutton"><i
-                                class="fa fa-angle-down"
-                              ></i></div>
-                            <div class="inc qtybutton"><i
-                                class="fa fa-angle-up"
-                              ></i></div>
                           </div>
                         </td>
                         <td class="product-subtotal"><span
@@ -75,6 +69,28 @@
                         <td class="li-product-remove">
                           <a><i class="fa fa-times"></i>
                           </a>
+                        </td>
+                        <td>
+                          <form action="/shopping-cart">
+                            <input
+                              type="hidden"
+                              name="id"
+                              value={{laptop_id}}
+                              style="width:1px"
+                            />
+                            <input
+                              name="quantity"
+                              value={{quantity}}
+                              style="width:40px"
+                            />
+                            <input
+                              type="checkbox"
+                              name="update"
+                              style="width:40px"
+                            />
+                            <button type="submit" class="btn btn-dark">Update
+                              Cart</button>
+                          </form>
                         </td>
                       </tr>
                     {{/each}}
@@ -86,6 +102,14 @@
           </div>
 
         </div>
+        {{! <div class="row">
+          <div class="col-md-5 ml-auto mt-4">
+            <form action="/shopping-cart">
+              <button type="submit" class="btn btn-dark">Update Cart</button>
+            </form>
+          </div>
+        </div> }}
+
         <div class="row">
           <div class="col-md-5 ml-auto">
             <div class="cart-page-total">
