@@ -68,7 +68,7 @@ function addItemToCart(laptop_id, user_id, image, price, quantity) {
 }
 
 async function getCart(user_id) {
-  const sql = `SELECT shoppingcart.*,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM shoppingcart,manufacture,model,laptop WHERE shoppingcart.laptop_id = laptop.laptop_id AND laptop.manufacture = manufacture.manufacture_id AND laptop.model = model.model_id AND user_id = ${user_id}`;
+  const sql = `SELECT shoppingcart.*,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name, shoppingcart.price*shoppingcart.quantity AS total FROM shoppingcart,manufacture,model,laptop WHERE shoppingcart.laptop_id = laptop.laptop_id AND laptop.manufacture = manufacture.manufacture_id AND laptop.model = model.model_id AND user_id = ${user_id}`;
   const listProductCart = await executeQuery(sql);
   return listProductCart;
 }
