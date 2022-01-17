@@ -1,19 +1,125 @@
 <!-- Begin Li's Breadcrumb Area -->
 <div class="breadcrumb-area">
-    <div class="container">
-        <div class="breadcrumb-content">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li class="active">Shopping Cart</li>
-            </ul>
-        </div>
+  <div class="container">
+    <div class="breadcrumb-content">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li class="active">Shopping Cart</li>
+      </ul>
     </div>
+  </div>
 </div>
+
 <!-- Li's Breadcrumb Area End Here -->
 <!--Shopping Cart Area Strat-->
-<div class="Shopping-cart-area pt-60 pb-60">
-    <div class="container">
+<div class="shopping-cart-area pt-60 pb-60">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+
+        <div class="table-content table-responsive">
+
+          <div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="li-product-thumbnail">images</th>
+                  <th class="cart-product-name">Product</th>
+                  <th class="li-product-price">Unit Price</th>
+                  <th class="li-product-quantity">Quantity</th>
+                  <th class="li-product-subtotal">Total</th>
+                  <th class="li-product-remove">remove</th>
+                </tr>
+              </thead>
+
+              <tbody id="list-product" class="list-product">
+                <div>
+                  {{#if listProductCart}}
+                    {{#each listProductCart}}
+                      <tr class="cart-row cart-item">
+
+                        <td class="li-product-thumbnail"><a
+                            href="/single-product?id={{laptop_id}}"
+                          ><img
+                              style="width: 100px"
+                              src={{image}}
+                              alt="Li's Product Image"
+                            /></a></td>
+                        <td class="li-product-name"><a href="">{{name}}</a></td>
+                        <td class="li-product-price"><span
+                            class="amount"
+                          >{{price}}
+                            VNĐ</span></td>
+                        <td class="quantity">
+                          <label>Quantity</label>
+                          <div class="cart-plus-minus">
+                            <input
+                              class="cart-plus-minus-box"
+                              value={{quantity}}
+                              type="text"
+                            />
+                          </div>
+                        </td>
+                        <td class="product-subtotal"><span
+                            class="amount"
+                          >{{total}}
+                            VNĐ</span></td>
+                        <td class="li-product-remove">
+                          <a><i class="fa fa-times"></i>
+                          </a>
+                        </td>
+                        <td>
+                          <form action="/shopping-cart">
+                            <input
+                              type="hidden"
+                              name="id"
+                              value={{laptop_id}}
+                              style="width:1px"
+                            />
+                            <input
+                              name="quantity"
+                              value={{quantity}}
+                              style="width:40px"
+                            />
+                            <input
+                              type="checkbox"
+                              name="update"
+                              style="width:40px"
+                            />
+                            <button type="submit" class="btn btn-dark">Update
+                              Cart</button>
+                          </form>
+                        </td>
+                      </tr>
+                    {{/each}}
+                  {{/if}}
+                </div>
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+        {{! <div class="row">
+          <div class="col-md-5 ml-auto mt-4">
+            <form action="/shopping-cart">
+              <button type="submit" class="btn btn-dark">Update Cart</button>
+            </form>
+          </div>
+        </div> }}
+
         <div class="row">
+          <div class="col-md-5 ml-auto">
+            <div class="cart-page-total">
+              <h2>Cart totals</h2>
+              <ul>
+                {{#each totalMoney}}
+                  <li>Total
+                    <span class="cart-total">{{totalMoney}}</span></li>
+                {{/each}}
+              </ul>
+              <a href="/checkout">Proceed to checkout</a>
+
             <div class="col-12">
                 <form action="#">
                     <div class="table-content table-responsive">
@@ -76,8 +182,16 @@
                         </div>
                     </div>
                 </form>
+
             </div>
+          </div>
         </div>
+
+      </div>
     </div>
+  </div>
 </div>
 <!--Shopping Cart Area End-->
+{{! <script src="js/single-product/single-product.js"></script> }}
+
+{{! <script src="js/product/get-product.js"></script> }}

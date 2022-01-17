@@ -22,3 +22,6 @@ router.get("/private", (req, res) => {
     res.send("Ban chưa login");
   }
 });
+
+// ủa sao e làm cái middleware để chặn private page đâu r
+// Thí dụ a có trang xem hóa đơn, nếu ko login thì ko cho vào, chứ này e mở banh hết r :))))

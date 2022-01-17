@@ -54,6 +54,10 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
       rel="stylesheet"
     />
+
+    <link rel="stylesheet" href="css/shopping-cart.css" />
+
+    {{! <script src="js/single-product/single-product.js"></script> }}
   </head>
 
   <body>
@@ -73,7 +77,7 @@
                     <li>
                       {{#if user}}
                         <div class="ht-setting-trigger">
-                          <h4>
+                          <h4 class="username">
                             Hello,
                             {{user.lastname}}
                           </h4>
@@ -304,6 +308,18 @@
     <script src="js/scrollUp.min.js"></script>
     <!-- Main/Activator js -->
     <script src="js/main.js"></script>
+
+    <!-- Product -->
+    {{! <script src="js/product/main.js"></script>
+    <script src="js/product/storage.js"></script>
+    <script src="js/product/get-product.js"></script> }}
+    {{! <script type="text/x-handlebars-template" id="handlebars"></script>
+    <script
+      src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"
+    ></script> }}
+
   </body>
+
+  <!-- JS at bottom -->
 
 </html>

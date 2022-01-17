@@ -1,5 +1,6 @@
 const ProductModel = require("../../models/product");
 const CommentModel = require("../../models/comment");
+const ShoppingCartModel = require("../../models/shopping-cart");
 class SingleProductController {
   async index(req, res) {
     // Hiển thị chi tiết sản phẩm
@@ -31,6 +32,31 @@ class SingleProductController {
     const listPageComment = [];
     for (let i = 0; i < totalPageComment; i++) {
       listPageComment.push(i + 1);
+    }
+
+    productDetail.forEach((product) => {
+      if (req.user) {
+        product.user = req.user;
+      }
+    });
+
+    if (!req.user) {
+      console.log("Xin mời đăng nhập");
+    } else if (
+      (req.query.id,
+      req.user.id &&
+        req.query.imageSrc &&
+        req.query.price &&
+        req.query.quantity &&
+        req.user.id)
+    ) {
+      ShoppingCartModel.addItemToCart(
+        req.query.id,
+        req.user.id,
+        req.query.imageSrc,
+        req.query.price,
+        req.query.quantity
+      );
     }
 
     res.render("single-product", {

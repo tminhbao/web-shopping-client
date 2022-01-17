@@ -12,6 +12,7 @@ const forgotRouter = require("./forgot");
 const resetPasswordRouter = require("./resetpassword");
 const editInfoRouter = require("./editinfo");
 const changePasswordRouter = require("./changepassword");
+const orderHistoryRouter = require("./orderhistory");
 
 function route(app) {
   app.use("/404", errorRouter);
@@ -28,6 +29,7 @@ function route(app) {
   app.use("/resetpassword", resetPasswordRouter);
   app.use("/editinfo", editInfoRouter);
   app.use("/changepassword", changePasswordRouter);
+  app.use("/orderhistory", orderHistoryRouter);
   app.use("/", homeRouter);
 }
 
