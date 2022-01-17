@@ -43,7 +43,7 @@ class SingleProductController {
     if (!req.user) {
       console.log("Xin mời đăng nhập");
     } else if (
-      (req.query.laptop_id,
+      (req.query.id,
       req.user.id &&
         req.query.imageSrc &&
         req.query.price &&
@@ -51,7 +51,7 @@ class SingleProductController {
         req.user.id)
     ) {
       ShoppingCartModel.addItemToCart(
-        req.query.laptop_id,
+        req.query.id,
         req.user.id,
         req.query.imageSrc,
         req.query.price,

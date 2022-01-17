@@ -91,7 +91,10 @@
             <div class="cart-page-total">
               <h2>Cart totals</h2>
               <ul>
-                <li>Total <span class="cart-total">$130.00</span></li>
+                {{#each totalMoney}}
+                  <li>Total
+                    <span class="cart-total">{{totalMoney}}</span></li>
+                {{/each}}
               </ul>
               <a href="#">Proceed to checkout</a>
             </div>

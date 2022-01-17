@@ -38,18 +38,6 @@ const db = require("../configs/connect");
 //   updateCartTotal();
 // }
 
-// function addToCartClicked(event) {
-//   var button = event.target;
-//   var shopItem = button.parentElement.parentElement.parentElement.parentElement;
-//   var title = shopItem.querySelector("h2").innerText;
-//   var price = parseInt(
-//     shopItem.querySelector(".new-price").innerText.replace("đ", "")
-//   );
-//   var imageSrc = shopItem.querySelector(".imageSrc").src;
-//   var quantity = shopItem.querySelector("#quantity-product").value;
-//   addItemToCart(title, price, imageSrc, quantity);
-// }
-
 const executeQuery = (query) => {
   return new Promise((res, rej) => {
     db.query(query, (err, result) => {
@@ -73,6 +61,12 @@ async function getCart(user_id) {
   return listProductCart;
 }
 
+async function getTotalMoney(user_id) {
+  const sql = `SELECT sum(shoppingcart.price*shoppingcart.quantity) AS totalMoney FROM shoppingcart,manufacture,model,laptop WHERE shoppingcart.laptop_id = laptop.laptop_id AND laptop.manufacture = manufacture.manufacture_id AND laptop.model = model.model_id AND user_id = ${user_id}`;
+  const totalMoney = await executeQuery(sql);
+  return totalMoney;
+}
+
 // function updateCartTotal() {
 //   const cartItemContainer = document.getElementsByClassName("list-product")[0];
 //   const cartRows = cartItemContainer.getElementsByClassName("cart-row");
@@ -91,4 +85,4 @@ async function getCart(user_id) {
 //   document.getElementsByClassName("cart-total")[0].innerText = Number(total);
 // }
 
-module.exports = { addItemToCart, getCart };
+module.exports = { addItemToCart, getCart, getTotalMoney };
