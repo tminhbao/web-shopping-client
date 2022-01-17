@@ -35,6 +35,7 @@ app.use(
 );
 
 // Enable flash message
+
 app.use(connectFlash());
 
 app.use(passport.initialize());
