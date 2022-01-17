@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const checkoutController = require("../app/controllers/CheckoutController");
+const orderHistoryController = require("../app/controllers/OrderHistoryController");
 const loginController = require("../app/controllers/LoginController");
-router.use("/", loginController.checkLoggedIn, checkoutController.index);
+router.get("/", loginController.checkLoggedIn, orderHistoryController.index);
 module.exports = router;

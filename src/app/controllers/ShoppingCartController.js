@@ -1,8 +1,6 @@
 const ShoppingCartModel = require("../../models/shopping-cart");
 class ShoppingCartController {
   async index(req, res) {
-    //const listProductCart = await ShoppingCartModel.getCart(req.user.id);
-
     // Update lại cart (theo từng sản phẩm)
     if (req.query.update === "on") {
       ShoppingCartModel.updateCart(

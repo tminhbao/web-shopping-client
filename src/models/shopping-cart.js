@@ -1,43 +1,5 @@
 const db = require("../configs/connect");
 
-// const removeCartItemButtons =
-//   document.getElementsByClassName("li-product-remove");
-// for (var i = 0; i < removeCartItemButtons.length; i++) {
-//   var button = removeCartItemButtons[i];
-//   button.addEventListener("click", removeCartItem);
-// }
-// const quantityInputs = document.getElementsByClassName("cart-plus-minus-box");
-// for (var i = 0; i < quantityInputs.length; i++) {
-//   var input = quantityInputs[i];
-//   input.addEventListener("change", quantityChanged);
-// }
-
-// const addToCartButtons = document.getElementsByClassName("add-to-cart");
-// for (var i = 0; i < addToCartButtons.length; i++) {
-//   var button = addToCartButtons[i];
-//   button.addEventListener("click", addToCartClicked);
-// }
-
-// const addToCartButtons = document.getElementsByClassName("add-to-cart");
-// for (var i = 0; i < addToCartButtons.length; i++) {
-//   var button = addToCartButtons[i];
-//   button.addEventListener("click", addToCartClicked);
-// }
-
-// function removeCartItem(event) {
-//   const buttonClicked = event.target;
-//   buttonClicked.parentElement.parentElement.parentElement.remove();
-//   updateCartTotal();
-// }
-
-// function quantityChanged(event) {
-//   var input = event.target;
-//   if (isNaN(input.value) || input.value <= 0) {
-//     input.value = 1;
-//   }
-//   updateCartTotal();
-// }
-
 const executeQuery = (query) => {
   return new Promise((res, rej) => {
     db.query(query, (err, result) => {
@@ -76,22 +38,33 @@ async function updateCart(user_id, laptop_id, quantity) {
   return listCartUpdate;
 }
 
-// function updateCartTotal() {
-//   const cartItemContainer = document.getElementsByClassName("list-product")[0];
-//   const cartRows = cartItemContainer.getElementsByClassName("cart-row");
-//   var total = 0;
-//   for (var i = 0; i < cartRows.length; i++) {
-//     const cartRow = cartRows[i];
-//     const priceElement = cartRow.getElementsByClassName("amount")[0];
-//     const quantityElement = cartRow.getElementsByClassName(
-//       "cart-plus-minus-box"
-//     )[0];
-//     const price = parseInt(priceElement.innerText.replace("VNĐ", ""));
-//     const quantity = quantityElement.value;
-//     total = total + price * quantity;
-//   }
-//   console.log(total);
-//   document.getElementsByClassName("cart-total")[0].innerText = Number(total);
-// }
+async function updateCheckout(
+  created,
+  user_id,
+  firstname,
+  lastname,
+  email,
+  address,
+  phone,
+  note
+) {
+  const sql = `INSERT INTO checkout (created,user_id,firstname,lastname,email,address,phone,note) 
+  VALUES ('${created}','${user_id}','${firstname}','${lastname}','${email}','${address}','${phone}','${note}')`;
+  const listCheckout = await executeQuery(sql);
+  return listCheckout;
+}
 
-module.exports = { addItemToCart, getCart, getTotalMoney, updateCart };
+async function getCheckout(user_id) {
+  const sql = `SELECT * FROM checkout WHERE user_id = '${user_id}'`;
+  const listCheckout = await executeQuery(sql);
+  return listCheckout;
+}
+
+module.exports = {
+  addItemToCart,
+  getCart,
+  getTotalMoney,
+  updateCart,
+  updateCheckout,
+  getCheckout,
+};
