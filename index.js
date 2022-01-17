@@ -2,7 +2,7 @@ const express = require("express");
 const handlebars = require("express-handlebars");
 const hbs = handlebars.create({ extname: ".hbs" });
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const route = require("./src/routes/index");
 const bodyParser = require("body-parser");
 
