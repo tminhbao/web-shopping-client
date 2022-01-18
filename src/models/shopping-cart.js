@@ -67,9 +67,8 @@ async function updateCheckout(
 }
 
 async function getCheckout(user_id) {
-  const sql = `SELECT checkout.user_id FROM checkout,shoppingcartdb WHERE checkout.user_id = shoppingcartdb.user_id AND checkout.user_id = '${user_id}'`;
+  const sql = `SELECT checkout.created,shoppingcartdb.laptop_id, shoppingcartdb.quantity,CONCAT_WS(" ", manufacture.manufacture_name, model.model_name, laptop.laptop_name) as name FROM checkout, shoppingcartdb, manufacture,model,laptop WHERE shoppingcartdb.laptop_id = laptop.laptop_id AND laptop.manufacture = manufacture.manufacture_id AND laptop.model = model.model_id AND checkout.user_id = shoppingcartdb.user_id AND checkout.user_id = '${user_id}'`;
   const listCheckout = await executeQuery(sql);
-  console.log(listCheckout);
   return listCheckout;
 }
 
