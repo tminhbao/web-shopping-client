@@ -42,6 +42,7 @@ class CheckoutController {
         req.query.firstname,
         req.query.lastname,
         req.query.email,
+        req.query.address,
         req.query.phone,
         req.query.note
       );
