@@ -63,22 +63,19 @@
   <table id="tbOrderHistory" class="table border ps-table w-100 mb-3">
     <thead>
       <tr>
-        <th class="font-weight-bold py-2 border-0 quantity">ID</th>
         <th class="font-weight-bold py-2 border-0">Created</th>
         <th class="font-weight-bold py-2 border-0">Customer</th>
         <th class="font-weight-bold py-2 border-0">State</th>
       </tr>
     </thead>
     <tbody>
-
-      <tr>
-        {{#each listCheckout}}
-          <td>{{id}}</td>
+      {{#each listCheckout}}
+        <tr>
           <td>{{created}}</td>
           <td>{{user_id}}</td>
           <td>{{state}}</td>
-        {{/each}}
-      </tr>
+        </tr>
+      {{/each}}
     </tbody>
   </table>
 </div>
@@ -99,7 +96,7 @@
   table.dataTable thead th.sorting_asc:after, table.dataTable thead
   th.sorting_desc:after { font-family: FontAwesome; position: relative
   !important; display: inline-block !important; font-size: 14px !important; top:
-  unset !important; right: unset !important; content: "\\\\\\\\\f062"
+  unset !important; right: unset !important; content: "\\\\\\\\\\\\f062"
   !important; transform-origin: center center; transition: 200ms ease-out;
   padding-top: 0 !important; } /* DEFAULT SORT ICON COLOR AND PLACEMENT */
   table.dataTable thead th.sorting:after { transform: translateY(5px); opacity:

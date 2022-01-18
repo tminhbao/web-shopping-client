@@ -9,12 +9,15 @@ const executeQuery = (query) => {
   });
 };
 
-function addItemToCart(laptop_id, user_id, image, price, quantity) {
+async function addItemToCart(laptop_id, user_id, image, price, quantity) {
   const sql = `INSERT INTO shoppingcart (laptop_id,user_id,image,price, quantity) VALUES ('${laptop_id}','${user_id}','${image}',${price},${quantity})`;
+  const sqldb = `INSERT INTO shoppingcartdb (laptop_id,user_id,image,price, quantity) VALUES ('${laptop_id}','${user_id}','${image}',${price},${quantity})`;
+
   db.query(sql, (err, result) => {
     if (err) throw err;
     console.log(result);
   });
+  await executeQuery(sqldb);
 }
 
 async function getCart(user_id) {
@@ -31,10 +34,17 @@ async function getTotalMoney(user_id) {
 
 async function updateCart(user_id, laptop_id, quantity) {
   const sqlDelete = `DELETE FROM shoppingcart WHERE laptop_id = '${laptop_id}' AND user_id = '${user_id}' `;
+  const sqlDeleteDB = `DELETE FROM shoppingcartdb WHERE laptop_id = '${laptop_id}' AND user_id = '${user_id}' `;
   const sql = `UPDATE shoppingcart SET quantity = ${quantity} WHERE laptop_id = '${laptop_id}' AND user_id = '${user_id}'`;
+  const sqlDB = `UPDATE shoppingcartdb SET quantity = ${quantity} WHERE laptop_id = '${laptop_id}' AND user_id = '${user_id}'`;
   let listCartUpdate = null;
-  if (quantity == 0) listCartUpdate = await executeQuery(sqlDelete);
-  else listCartUpdate = await executeQuery(sql);
+  if (quantity == 0) {
+    listCartUpdate = await executeQuery(sqlDelete);
+    await executeQuery(sqlDeleteDB);
+  } else {
+    listCartUpdate = await executeQuery(sql);
+    await executeQuery(sqlDB);
+  }
   return listCartUpdate;
 }
 
@@ -50,13 +60,16 @@ async function updateCheckout(
 ) {
   const sql = `INSERT INTO checkout (created,user_id,firstname,lastname,email,address,phone,note) 
   VALUES ('${created}','${user_id}','${firstname}','${lastname}','${email}','${address}','${phone}','${note}')`;
+  const sqlDeleteTempCart = `DELETE FROM shoppingcart WHERE user_id = '${user_id}'`;
   const listCheckout = await executeQuery(sql);
+  await executeQuery(sqlDeleteTempCart);
   return listCheckout;
 }
 
 async function getCheckout(user_id) {
-  const sql = `SELECT * FROM checkout WHERE user_id = '${user_id}'`;
+  const sql = `SELECT checkout.user_id FROM checkout,shoppingcartdb WHERE checkout.user_id = shoppingcartdb.user_id AND checkout.user_id = '${user_id}'`;
   const listCheckout = await executeQuery(sql);
+  console.log(listCheckout);
   return listCheckout;
 }
 
