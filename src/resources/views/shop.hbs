@@ -299,19 +299,19 @@
                 <div class="col-lg-6 col-md-6">
                   <ul class="pagination-box pt-xs-20 pb-xs-15">
                     {{#each listPage}}
-                      <li><a href="/shop?page={{this}}">{{this}}</a></li>
+                      <li><a href="/shop?manufacture={{manufacure}}&page={{this}}">{{this}}</a></li>
                     {{/each}}
                     {{#each listPageNameAZ}}
-                    <li><a href="/shop?page={{this}}">{{this}}</a></li>
+                    <li><a href="/shop?tenAZ=on&page={{this}}">{{this}}</a></li>
                     {{/each}}
                     {{#each listPageNameZA}}
-                    <li><a href="/shop?page={{this}}">{{this}}</a></li>
+                    <li><a href="/shop?nameAZ=on&page={{this}}">{{this}}</a></li>
                     {{/each}}
                     {{#each listPagePriceLowHigh}}
-                    <li><a href="/shop?page={{this}}">{{this}}</a></li>
+                    <li><a href="/shop?pricelowhigh=on&page={{this}}">{{this}}</a></li>
                     {{/each}}
                     {{#each listPagePriceHighLow}}
-                    <li><a href="/shop?page={{this}}">{{this}}</a></li>
+                    <li><a href="/shop?pricehighlow=on&page={{this}}">{{this}}</a></li>
                     {{/each}}
                     {{#each listPageSearching}}
                     <li><a href="/shop?page={{this}}">{{this}}</a></li>
