@@ -61,7 +61,7 @@ async function updateCheckout(
   const sql = `INSERT INTO checkout (created,user_id,firstname,lastname,email,address,phone,note) 
   VALUES ('${created}','${user_id}','${firstname}','${lastname}','${email}','${address}','${phone}','${note}')`;
   const sqlDeleteTempCart = `DELETE FROM shoppingcart WHERE user_id = '${user_id}'`;
-  const sqlUpdateState = `UPDATE checkout SET state = "delivering" WHERE user_id = '${user_id}'`;
+  const sqlUpdateState = `UPDATE checkout SET state = "delivering" WHERE user_id = '${user_id}' AND created = '${created}' `;
   const listCheckout = await executeQuery(sql);
   await executeQuery(sqlUpdateState);
   await executeQuery(sqlDeleteTempCart);
